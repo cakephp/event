@@ -61,7 +61,7 @@ interface EventManagerInterface
         EventListenerInterface|string $eventKey,
         callable|array $options = [],
         ?callable $callable = null,
-    );
+    ): static;
 
     /**
      * Remove a listener from the active listeners.
@@ -98,7 +98,7 @@ interface EventManagerInterface
     public function off(
         EventListenerInterface|callable|string $eventKey,
         EventListenerInterface|callable|null $callable = null,
-    );
+    ): static;
 
     /**
      * Dispatches a new event to all configured listeners

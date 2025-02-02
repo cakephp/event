@@ -60,7 +60,7 @@ trait EventDispatcherTrait
      * @param \Cake\Event\EventManagerInterface $eventManager the eventManager to set
      * @return $this
      */
-    public function setEventManager(EventManagerInterface $eventManager)
+    public function setEventManager(EventManagerInterface $eventManager): static
     {
         $this->_eventManager = $eventManager;
 

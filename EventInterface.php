@@ -67,7 +67,7 @@ interface EventInterface
      * @param mixed $value The value to set.
      * @return $this
      */
-    public function setResult(mixed $value = null);
+    public function setResult(mixed $value = null): static;
 
     /**
      * Accesses the event data/payload.
@@ -85,5 +85,5 @@ interface EventInterface
      * @param mixed $value The value to set.
      * @return $this
      */
-    public function setData(array|string $key, mixed $value = null);
+    public function setData(array|string $key, mixed $value = null): static;
 }
