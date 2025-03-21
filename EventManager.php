@@ -333,7 +333,7 @@ class EventManager implements EventManagerInterface
             deprecationWarning(
                 '5.2.0',
                 'Returning a value from event listeners is deprecated. ' .
-                'Use `$event->setResult()` instead.'
+                'Use `$event->setResult()` instead.',
             );
             $event->setResult($result);
         }
