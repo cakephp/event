@@ -18,7 +18,6 @@ namespace Cake\Event;
 
 use Cake\Core\Exception\CakeException;
 use InvalidArgumentException;
-use function Cake\Core\deprecationWarning;
 
 /**
  * The event manager is responsible for keeping track of event listeners, passing the correct
@@ -327,17 +326,7 @@ class EventManager implements EventManagerInterface
      */
     protected function _callListener(callable $listener, EventInterface $event): void
     {
-        $result = $listener($event, ...array_values($event->getData()));
-
-        if ($result !== null) {
-            $class = get_class($event->getSubject());
-            deprecationWarning(
-                '5.2.0',
-                'Returning a value from event listeners is deprecated. ' .
-                'Use `$event->setResult()` instead in `' . $event->getName() . '` of `' . $class . '`',
-            );
-            $event->setResult($result);
-        }
+        $listener($event, ...array_values($event->getData()));
 
         if ($event->getResult() === false) {
             $event->stopPropagation();
