@@ -330,7 +330,11 @@ class EventManager implements EventManagerInterface
         $result = $listener($event, ...array_values($event->getData()));
 
         if ($result !== null) {
-            $class = get_class($event->getSubject());
+            try {
+                $class = get_class($event->getSubject());
+            } catch (CakeException) {
+                $class = 'unknown subject';
+            }
             deprecationWarning(
                 '5.2.0',
                 'Returning a value from event listeners is deprecated. ' .
