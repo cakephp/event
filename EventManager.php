@@ -103,7 +103,7 @@ class EventManager implements EventManagerInterface
         ?callable $callable = null,
     ): static {
         if ($eventKey instanceof EventListenerInterface) {
-            $this->_attachSubscriber($eventKey);
+            $this->attachSubscriber($eventKey);
 
             return $this;
         }
@@ -139,7 +139,7 @@ class EventManager implements EventManagerInterface
      * @param \Cake\Event\EventListenerInterface $subscriber Event listener.
      * @return void
      */
-    protected function _attachSubscriber(EventListenerInterface $subscriber): void
+    protected function attachSubscriber(EventListenerInterface $subscriber): void
     {
         foreach ($subscriber->implementedEvents() as $eventKey => $handlers) {
             foreach ($this->normalizeHandlers($subscriber, $handlers) as $handler) {
@@ -156,7 +156,7 @@ class EventManager implements EventManagerInterface
         EventListenerInterface|callable|null $callable = null,
     ): static {
         if ($eventKey instanceof EventListenerInterface) {
-            $this->_detachSubscriber($eventKey);
+            $this->detachSubscriber($eventKey);
 
             return $this;
         }
@@ -170,7 +170,7 @@ class EventManager implements EventManagerInterface
         }
 
         if ($callable instanceof EventListenerInterface) {
-            $this->_detachSubscriber($callable, $eventKey);
+            $this->detachSubscriber($callable, $eventKey);
 
             return $this;
         }
@@ -205,7 +205,7 @@ class EventManager implements EventManagerInterface
      * @param string|null $eventKey optional event key name to unsubscribe the listener from
      * @return void
      */
-    protected function _detachSubscriber(EventListenerInterface $subscriber, ?string $eventKey = null): void
+    protected function detachSubscriber(EventListenerInterface $subscriber, ?string $eventKey = null): void
     {
         $events = $subscriber->implementedEvents();
         if ($eventKey && empty($events[$eventKey])) {
@@ -309,7 +309,7 @@ class EventManager implements EventManagerInterface
                 break;
             }
 
-            $this->_callListener($listener['callable'], $event);
+            $this->callListener($listener['callable'], $event);
         }
 
         return $event;
@@ -323,7 +323,7 @@ class EventManager implements EventManagerInterface
      * @param \Cake\Event\EventInterface<TSubject> $event Event instance.
      * @return void
      */
-    protected function _callListener(callable $listener, EventInterface $event): void
+    protected function callListener(callable $listener, EventInterface $event): void
     {
         $listener($event, ...array_values($event->getData()));
 
